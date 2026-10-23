@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>현릉, 두 개의 언덕</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* 레이아웃: 단일 컬럼 답사기. 입구(홍살문)→전경(두 언덕)→안내판→서사 순으로 사진이 본문의 리듬을 끊는다. 장 표지는 숫자 대신 간지/한자 숫자를 써서 '기록'의 느낌을 준다. */
+:root{
+  --ink:#1b1c1a;
+  --paper:#eeebe2;
+  --stone:#8d8a7c;
+  --vermilion:#9c4a3a;
+  --celadon:#5c7267;
+  --line:#c9c4b4;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#e9e6da;
+    --paper:#15150f;
+    --stone:#8b8878;
+    --vermilion:#d98a74;
+    --celadon:#8fab9c;
+    --line:#39392c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#e9e6da;
+  --paper:#15150f;
+  --stone:#8b8878;
+  --vermilion:#d98a74;
+  --celadon:#8fab9c;
+  --line:#39392c;
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Noto Sans KR',sans-serif;
+  line-height:1.8;
+  padding-inline:0;
+}
+.wrap{
+  max-width:720px;
+  margin:0 auto;
+  padding:0 20px 80px;
+}
+.mast{
+  padding-top:40px;
+  text-align:center;
+  border-bottom:1px solid var(--line);
+  padding-bottom:36px;
+  margin-bottom:40px;
+}
+.mast .tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:.12em;
+  color:var(--stone);
+  text-transform:uppercase;
+}
+h1{
+  font-family:'Noto Serif KR',serif;
+  font-weight:700;
+  font-size:clamp(28px,6vw,40px);
+  line-height:1.35;
+  margin:18px 0 10px;
+  text-wrap:balance;
+}
+.sub{
+  font-family:'Noto Serif KR',serif;
+  font-size:17px;
+  color:var(--stone);
+  margin:0 0 18px;
+}
+.meta{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  color:var(--stone);
+  letter-spacing:.04em;
+}
+
+figure{margin:36px 0}
+figure img{
+  width:100%;
+  display:block;
+  border-radius:2px;
+}
+figcaption{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  color:var(--stone);
+  margin-top:10px;
+  padding-left:10px;
+  border-left:2px solid var(--line);
+}
+
+.prologue{
+  font-family:'Noto Serif KR',serif;
+  font-size:16px;
+  color:var(--ink);
+  background:transparent;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:26px 0;
+  margin-bottom:8px;
+}
+.prologue .label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  letter-spacing:.14em;
+  color:var(--vermilion);
+  text-transform:uppercase;
+  display:block;
+  margin-bottom:12px;
+}
+
+.scene{margin-top:64px}
+.scene-head{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  margin-bottom:16px;
+}
+.scene-num{
+  font-family:'Noto Serif KR',serif;
+  font-size:30px;
+  color:var(--vermilion);
+  flex:0 0 auto;
+}
+.scene-title{
+  font-family:'Noto Serif KR',serif;
+  font-weight:600;
+  font-size:21px;
+  text-wrap:balance;
+}
+.scene p{margin:0 0 16px;font-size:15.5px}
+.scene p:last-child{margin-bottom:0}
+
+blockquote{
+  font-family:'Noto Serif KR',serif;
+  font-size:14.5px;
+  color:var(--ink);
+  background:color-mix(in srgb, var(--celadon) 10%, transparent);
+  border-left:3px solid var(--celadon);
+  padding:16px 18px;
+  margin:20px 0;
+  line-height:1.85;
+}
+blockquote .src{
+  display:block;
+  margin-top:10px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--stone);
+}
+
+.pull{
+  font-family:'Noto Serif KR',serif;
+  font-size:20px;
+  font-weight:600;
+  line-height:1.5;
+  color:var(--vermilion);
+  margin:28px 0;
+  padding-left:16px;
+  border-left:3px solid var(--vermilion);
+  text-wrap:balance;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:20px 0;
+  font-size:14px;
+}
+th,td{
+  border-bottom:1px solid var(--line);
+  padding:10px 8px;
+  text-align:left;
+  vertical-align:top;
+}
+th{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--stone);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  font-weight:500;
+}
+td:first-child{
+  font-family:'Noto Serif KR',serif;
+  font-weight:600;
+  white-space:nowrap;
+}
+
+.timeline{
+  margin:24px 0;
+  border-left:1px solid var(--line);
+  padding-left:20px;
+}
+.timeline .row{
+  display:flex;
+  gap:14px;
+  margin-bottom:14px;
+  position:relative;
+}
+.timeline .row:before{
+  content:'';
+  position:absolute;
+  left:-24px;
+  top:6px;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--vermilion);
+}
+.timeline .y{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;
+  color:var(--stone);
+  flex:0 0 76px;
+}
+.timeline .d{font-size:14.5px}
+
+.closing{
+  margin-top:64px;
+  padding-top:28px;
+  border-top:1px solid var(--line);
+  font-family:'Noto Serif KR',serif;
+  font-size:16px;
+}
+.closing .label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  letter-spacing:.14em;
+  color:var(--vermilion);
+  text-transform:uppercase;
+  display:block;
+  margin-bottom:12px;
+}
+
+.visit{
+  margin-top:48px;
+  border:1px solid var(--line);
+  border-radius:4px;
+  padding:22px;
+}
+.visit h3{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--vermilion);
+  margin:0 0 16px;
+}
+.visit dl{
+  display:grid;
+  grid-template-columns:88px 1fr;
+  gap:8px 14px;
+  margin:0;
+  font-size:14px;
+}
+.visit dt{color:var(--stone);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.visit dd{margin:0}
+
+.series{
+  margin-top:40px;
+  font-size:14px;
+}
+.series h3{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--stone);
+  margin:0 0 14px;
+}
+.series ol{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.series li{
+  display:flex;
+  gap:10px;
+  padding:8px 0;
+  border-bottom:1px solid var(--line);
+}
+.series li:last-child{border-bottom:none}
+.series .n{
+  font-family:'IBM Plex Mono',monospace;
+  color:var(--stone);
+  flex:0 0 18px;
+}
+.series li.here{
+  color:var(--vermilion);
+  font-weight:700;
+}
+.series li.here .n{color:var(--vermilion)}
+.series .note{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--stone);
+  margin-left:auto;
+  padding-left:10px;
+  text-align:right;
+}
+</style>
+
+<div class="wrap">
+
+  <div class="mast">
+    <div class="tag">조선 왕조 이야기 · 문종 편</div>
+    <h1>왕비 없는 왕, 그리고<br>조선의 비극이 시작되다</h1>
+    <p class="sub">현릉(顯陵) — 문종과 현덕왕후, 두 개의 언덕에 나뉘어 잠들다</p>
+    <p class="meta">경기도 구리시 동구릉 · 조선왕릉(유네스코 세계유산, 2009)</p>
+  </div>
+
+  <figure style="margin:0 0 40px">
+    <img src="img/jeongyeong.jpg" alt="현릉의 두 언덕, 계곡을 사이에 두고 좌우로 갈라진 봉분">
+    <figcaption>왼쪽 언덕과 오른쪽 언덕 사이, 가운데가 움푹 꺼져 있다. 이 계곡 하나를 사이에 두고 문종과 현덕왕후가 각자 묻혀 있다.</figcaption>
+  </figure>
+
+  <div class="prologue">
+    <span class="label">Prologue</span>
+    <p>구리 동구릉, 건원릉에서 태조를 만나고 돌아선 바로 그 능역 안에 문종과 그의 왕비가 있었다. 29년 동안 세자였고 2년 동안 왕이었던 사람, 그리고 왕비 없이 왕이 된 사람의 자리다.</p>
+  </div>
+
+  <div class="scene">
+    <div class="scene-head">
+      <span class="scene-num">一</span>
+      <span class="scene-title">홍살문 너머, 두 개의 길</span>
+    </div>
+    <figure>
+      <img src="img/hongsalmun.jpg" alt="현릉 참도 입구의 홍살문과 향로·어로 안내판">
+      <figcaption>참도 입구. 홍살문을 지나면 길이 둘로 나뉜다 — 왼쪽은 향로(香路), 오른쪽은 어로(御路).</figcaption>
+    </figure>
+    <p>건원릉에서 이미 본 풍경이지만, 홍살문 안쪽의 길은 능마다 조금씩 다르다. 가운데로 솟은 돌길이 향로, 그보다 한 단 낮은 오른쪽 길이 어로다. 혼령이 향과 축문을 들고 가는 길과 임금이 걷는 길을 나눠 놓은 것이다. 안내판은 짧게 썼다. “오른쪽의 어로로 걸으세요.” 그 말대로 걸었다.</p>
+    <p>건원릉은 능 하나, 봉분 하나였다. 참도를 따라 걸으며 정자각 너머로 언덕이 하나가 아니라 둘인 것을 보고서야, 이곳이 다르다는 걸 알았다.</p>
+  </div>
+
+  <div class="scene">
+    <div class="scene-head">
+      <span class="scene-num">二</span>
+      <span class="scene-title">언덕 둘, 봉분 둘</span>
+    </div>
+    <figure>
+      <img src="img/jeongjagak.jpg" alt="현릉 정자각에서 바라본 좌우 두 언덕">
+      <figcaption>정자각에서 바라본 현릉. 왼쪽 언덕에 문종의 능, 오른쪽 언덕에 현덕왕후의 능이 따로 서 있다.</figcaption>
+    </figure>
+    <p>이런 형식을 동원이강릉(同原異岡陵)이라 부른다. 같은 능역(同原) 안에 있지만, 서로 다른 언덕(異岡)에 각자의 봉분을 쓴 것이다. 정자각과 제향 공간은 하나를 같이 쓰고, 잠든 자리만 나뉘어 있다.</p>
+    <p>왜 이렇게 지었는지는 사실 뒤에 나오는 사정(현덕왕후가 한참 뒤에 이장되어 왔다는 것)과 맞물려 있다. 그 이야기는 四에서 이어진다.</p>
+    <table>
+      <tr><th>항목</th><th>건원릉(태조)</th><th>현릉(문종·현덕왕후)</th></tr>
+      <tr><td>형식</td><td>단릉(單陵)</td><td>동원이강릉(同原異岡陵)</td></tr>
+      <tr><td>봉분</td><td>1기</td><td>2기(좌: 문종 / 우: 현덕왕후)</td></tr>
+      <tr><td>정자각</td><td>1동, 단독 사용</td><td>1동, 두 능이 공동 사용</td></tr>
+    </table>
+  </div>
+
+  <div class="scene">
+    <div class="scene-head">
+      <span class="scene-num">三</span>
+      <span class="scene-title">안내판이 적어 둔 것</span>
+    </div>
+    <figure>
+      <img src="img/anjae.jpg" alt="현릉 안내판 전문과 상설도해설">
+      <figcaption>능역 입구의 안내판. 국문·영문으로 문종과 현덕왕후를 소개하고 있다.</figcaption>
+    </figure>
+    <blockquote>
+      현릉은 조선 5대 문종(1414~1452, 1450~1452 재위)과 현덕왕후 권씨(1418~1441)의 능이다. 정자각 쪽에서 능을 바라보았을 때, 왼쪽 언덕에 문종의 능, 오른쪽 언덕에 현덕왕후의 능이 있다. 문종은 세종의 맏아들로 세종의 훈민정음 창제를 도왔고, 재위 기간 동안 『고려사』와 『고려사절요』를 편찬하였으며 군사제도를 정비하였다.
+      <span class="src">현장 안내판 전문 중에서</span>
+    </blockquote>
+    <p>안내판이 짧게 요약한 문종의 이력은 가볍지 않다. 아버지 세종이 훈민정음이라는 발명품을 만들었을 때, 그 발명품의 설명서를 함께 매만지고 다듬은 사람이 문종이다. 그리고 왕이 되기 전, 세자 신분으로 이미 역사책(『고려사』·『고려사절요』)을 완성시키고 군대의 진법과 화차 같은 무기까지 손본 사람이기도 하다. 즉위한 지 2년 만에 세상을 떠났다는 사실 때문에 이름이 잘 알려지지 않았을 뿐, 준비가 안 된 왕은 아니었다.</p>
+    <p>현릉 비문 번역문에 따르면 문종은 1414년 10월 3일에 태어나 1421년에 왕세자로 책봉되었고, 1450년 2월에 왕위에 올랐다. 책봉에서 즉위까지 29년이다. 연표로는 1442년부터 세종이 세상을 떠난 1450년까지 약 8년 동안 대리청정을 했다. 세자 시절의 활동으로 진법 편찬과 화차 개량이 전해지지만, 그 연도는 확인하지 못했다.</p>
+    <p class="pull">수업은 29년, 실습은 8년이었다. 주어진 시간은 2년이었다.</p>
+  </div>
+
+  <div class="scene">
+    <div class="scene-head">
+      <span class="scene-num">四</span>
+      <span class="scene-title">비석이 말해주는 날짜</span>
+    </div>
+    <figure>
+      <img src="img/sindobi.jpg" alt="현릉 신도비, 전서체 비면과 국역 설명판">
+      <figcaption>비각 안의 신도비. 전서체로 새긴 비면 옆에 국역 번역문이 함께 놓여 있다.</figcaption>
+    </figure>
+    <p>안내판이 들려준 이야기를, 비석은 날짜로 다시 확인해 준다. 현장에 놓인 국역 번역문을 따라가면 이렇다. 문종은 1452년(임신년) 5월 14일에 승하했고, 같은 해 9월 1일 양주(지금의 구리) 건원릉 동쪽 산줄기 언덕에 장사되었다. 현덕왕후는 1441년(신축년) 7월 24일에 승하해 같은 해 9월 안산에 장사되었다가, 1513년(계유년) 4월 21일 지금의 자리인 문종 능 곁 언덕으로 이장되었다. 같은 번역문에는 그가 1431년 승휘에 봉해졌다가 얼마 뒤 양원이 되었고, 1437년 세자빈으로 책봉되었다는 이력도 적혀 있다. 비석 자체는 1755년(을해년, 영조 31년)에 세워졌다고 적혀 있다 — 문종이 떠난 지 300년도 더 지난 뒤의 일이다.</p>
+    <p>안내판은 요약이고, 비석은 그 요약의 근거다. 두 기록이 같은 사실을 서로 다른 밀도로 되짚어 줄 때, 그 사실은 조금 더 믿을 만해진다.</p>
+  </div>
+
+  <div class="scene">
+    <div class="scene-head">
+      <span class="scene-num">五</span>
+      <span class="scene-title">죽은 자를 지키는 돌들</span>
+    </div>
+    <figure>
+      <img src="img/seokmul.jpg" alt="문종 능 봉분을 둘러싼 문석인·무인석·석양·석호">
+      <figcaption>봉분을 둘러싼 석물들. 문석인과 무인석이 마주 서고, 그 사이로 석양과 석호가 자리를 지킨다.</figcaption>
+    </figure>
+    <p>봉분 가까이 다가가면 돌로 깎은 사람과 짐승들이 줄지어 서 있다. 홀을 쥔 문석인, 갑옷을 입은 무인석, 그 사이사이의 석양과 석호. 안내판의 상설도해설이 적어 둔 것과 눈앞의 돌들이 하나씩 맞아떨어진다.</p>
+  </div>
+
+  <div class="scene">
+    <div class="scene-head">
+      <span class="scene-num">六</span>
+      <span class="scene-title">왕비 없는 왕</span>
+    </div>
+    <p>문종에게는 세자빈이 셋이었다. 앞의 두 사람은 모두 세자빈 자리에서 폐출되었고, 세 번째가 현덕왕후 권씨였다.</p>
+    <table>
+      <tr><th>세자빈</th><th>이력</th><th>출처</th></tr>
+      <tr><td>휘빈 김씨</td><td>1429년 폐출. 세자의 사랑을 얻으려 주술을 썼다가 발각된 것이 사유로 전해진다.</td><td>연표</td></tr>
+      <tr><td>순빈 봉씨</td><td>1429년 책봉, 1436년 폐출. 폐출 사유는 자료마다 서술이 달라 이 글에서는 단정하지 않는다.</td><td>연표</td></tr>
+      <tr><td>현덕왕후 권씨</td><td>1431년 승휘, 얼마 뒤 양원, 1437년 세자빈 책봉. 1441년 7월 24일 승하.</td><td>현장</td></tr>
+    </table>
+    <p>1437년 세자빈이 된 권씨는 1441년에 아들을 낳았다. 그 아들이 훗날의 단종이다.</p>
+    <p>현덕빈은 아이를 낳은 지 얼마 지나지 않아 세상을 떠났다. 안내판의 표현 그대로 “단종을 낳은 후 곧 세상을 떠나” 당시 경기도 안산에 묘가 조성됐다. 그러니 1450년 문종이 왕위에 올랐을 때, 그의 곁에는 이미 왕비가 없었다. 세자빈 자리는 9년 전에 비어 있었고, 그 자리를 다시 채우지 않은 채 왕이 되었다.</p>
+    <p class="pull">즉위한 왕에게 왕비가 없다 — 이것이 문종이 맞이한 첫 조건이었다.</p>
+    <p>문종은 즉위 후 세상을 떠난 세자빈을 왕후로 높이고, 능의 이름을 소릉(昭陵)이라 했다. 살아서 왕비가 되지 못한 여인을, 죽은 뒤에야 왕비로 만들어 준 것이다. 이 소릉은 지금 자리에 없었다. 안산에 그대로 있었다.</p>
+  </div>
+
+  <div class="scene">
+    <div class="scene-head">
+      <span class="scene-num">七</span>
+      <span class="scene-title">아버지가 죽자, 비극이 시작되다</span>
+    </div>
+    <p>문종은 재위 2년을 넘기지 못했다. 1452년, 그가 세상을 떠났을 때 뒤를 이은 단종은 겨우 열두 살(세는 나이)이었다. 아버지는 준비된 왕이었지만, 아들은 준비될 시간이 없었다. 그리고 그 아들의 곁에도, 어머니인 현덕왕후는 이미 세상에 없었다. 외할아버지 쪽 외척도, 어머니도, 든든한 신하들의 울타리도 없이 어린 왕이 홀로 남겨진 셈이다.</p>
+    <div class="timeline">
+      <div class="row"><span class="y">1452</span><span class="d">문종 승하. 12세(세는 나이) 단종 즉위.</span></div>
+      <div class="row"><span class="y">1453</span><span class="d">계유정난. 수양대군이 권력을 쥔다.</span></div>
+      <div class="row"><span class="y">1455</span><span class="d">단종, 수양대군(세조)에게 왕위를 내준다.</span></div>
+      <div class="row"><span class="y">1457</span><span class="d">단종, 노산군으로 강봉되어 영월로. 같은 해 사사. 현덕왕후도 함께 폐위되어 능이 이장된다.</span></div>
+      <div class="row"><span class="y">1513</span><span class="d">중종 8년, 현덕왕후 복위. 능이 문종의 현릉 곁 언덕으로 옮겨진다.</span></div>
+    </div>
+    <p>안내판은 이 대목도 담담하게 적었다. “세조 대에 단종이 노산군으로 강등되자 현덕왕후도 같이 폐위되어, 능이 다른 곳에 이장되었다.” 아들이 왕의 자리에서 밀려나자, 이미 죽은 어머니의 자리까지 함께 거두어졌다는 뜻이다. 그 능이 다시 세상에 돌아오는 데는 56년이 걸렸다. 1513년에야 복위되어, 지금 우리가 보는 오른쪽 언덕에 자리를 잡았다.</p>
+    <p class="pull">현덕왕후는 죽은 뒤에 왕후가 되었고, 폐위되었고, 다시 왕후가 되었다.</p>
+    <p>능의 이름과 격도 그 순서를 그대로 따라갔다. 안내판의 표현은 ‘이장’이지만, 이름표만 바꾼 것이 아니라 능 자체가 다른 곳으로 옮겨졌다는 뜻이다.</p>
+    <table>
+      <tr><th>시기</th><th>현덕왕후의 자리</th><th>출처</th></tr>
+      <tr><td>1441</td><td>세자빈으로 승하, 안산에 묘 조성</td><td>현장</td></tr>
+      <tr><td>1450</td><td>문종 즉위 후 왕후로 추숭, 능호 소릉</td><td>현장</td></tr>
+      <tr><td>1457</td><td>단종 강등과 함께 폐위, 능 이장</td><td>현장(이장) · 연표(연도)</td></tr>
+      <tr><td>1513</td><td>복위, 현릉 곁 언덕으로 이장</td><td>현장</td></tr>
+    </table>
+    <p>종묘의 신주도 같은 길을 걸었다는 설명이 일부 자료에 보인다(1454년 문종과 함께 봉안, 1457년 철거, 1513년 복귀). 이 연결은 이번에 원문으로 확인하지 못해서 이 글에서는 다루지 않는다.</p>
+    <p>이 흐름은 앞서 심온 묘에서 본 심온의 사사, 태종의 민씨 숙청과 이어진 선 위에 있다. 태종이 외척을 베고, 세종이 처가(심온)를 잃고, 그 아들 문종은 왕비 없이 즉위해 2년 만에 세상을 떠났다. 그리고 그 손자 단종은 외척도 어머니도 없이 홀로 남아 왕위를 잃었다. 한 대(代)씩 건너며 되풀이된 구조라고 말할 수는 있어도, 문종이 그 구조를 의식하며 살았는지는 기록으로 확인할 수 없다. 다만 그가 심온의 사사를 모를 수 없었던 세자였다는 사실, 그리고 그 자신도 왕비 없이 즉위했다는 사실만은 분명하다.</p>
+  </div>
+
+  <div class="closing">
+    <span class="label">Closing</span>
+    <p>현릉은 두 개의 언덕으로 한 가지를 말해준다. 기록에 남은 문종과, 역사가 기억하는 문종이 다르다는 것. 안내판 속 문종은 훈민정음을 돕고 역사책을 편찬하고 군제를 정비한 성실한 세자였다. 그러나 그가 남긴 것은 2년의 치세와, 왕비 없이 떠난 어린 아들이었다. 오른쪽 언덕에 뒤늦게 돌아온 현덕왕후의 능은, 그 비극이 아들 단종에게서 끝나지 않고 어머니에게까지 미쳤다는 증거로 남아 있다.</p>
+    <p>문종의 이야기는 두 곳의 답사로 닫는다. 외조부 심온이 묻힌 수원의 사유지, 그리고 아내 현덕왕후가 뒤늦게 돌아와 누운 이곳 현릉이다. 둘을 잇는 연표는 이렇다.</p>
+    <div class="timeline">
+      <div class="row"><span class="y">1418</span><span class="d">외조부 심온, 수원에서 사사. 문종 때 복관되었다.</span></div>
+      <div class="row"><span class="y">1441</span><span class="d">현덕왕후, 단종을 낳은 뒤 승하. 안산에 장사.</span></div>
+      <div class="row"><span class="y">1450</span><span class="d">문종 즉위. 왕비 없는 왕.</span></div>
+      <div class="row"><span class="y">1452</span><span class="d">문종 승하. 건원릉 동쪽 산줄기에 장사.</span></div>
+      <div class="row"><span class="y">1513</span><span class="d">현덕왕후 복위, 문종 능 곁 언덕으로 이장.</span></div>
+    </div>
+    <p>외조부의 죽음에서 시작해 아내의 이장으로 끝나는 선이다. 외척이 다치는 일이 대를 건너 되풀이된 그 선의 한가운데에, 준비된 왕 한 사람이 2년 동안 앉아 있었다. 세종과 세조라는 두 이름 사이에 끼어 가장 덜 기억되는 왕이라는 것이, 이 글을 쓰는 사람의 평가다. 안산의 옛 소릉 터와 관련 유물은 이번 답사에서 따로 다루지 않았다.</p>
+  </div>
+
+  <div class="visit">
+    <h3>답사 정보 · Visitor Info</h3>
+    <dl>
+      <dt>위치</dt><dd>경기도 구리시 인창동, 동구릉 능역 내 (건원릉과 같은 능역)</dd>
+      <dt>세계유산</dt><dd>조선왕릉(유네스코 세계문화유산, 2009) 구성 능역</dd>
+      <dt>연계 답사</dt><dd>건원릉(태조) · 심온 묘(수원, 문종의 외조부)</dd>
+      <dt>참고</dt><dd>동구릉은 9기의 능이 모인 능역으로, 현릉은 건원릉에서 도보로 이동 가능</dd>
+    </dl>
+  </div>
+
+  <div class="series">
+    <h3>조선 왕조 이야기 · 문종 편</h3>
+    <ol>
+      <li><span class="n">1</span> 왕실의 외척을 본 왕자 — 심온 묘</li>
+      <li class="here"><span class="n">2</span> 왕비 없는 왕, 그리고 조선의 비극이 시작되다 — 현릉 <span class="note">이 글</span></li>
+    </ol>
+  </div>
+
+</div>
+
+</html>
